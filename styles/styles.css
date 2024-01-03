@@ -1,0 +1,180 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+  header {
+    background-color: #1E90FF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+nav li {
+  margin-left: 1em;
+}  
+
+  nav a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 0 1em;
+    color: rgb(255, 255, 255);
+    text-shadow:
+      0 0 7px brown,
+      0 0 10px brown,
+      0 0 21px brown,
+      0 0 42px rgb(0, 0, 0),
+      0 0 82px rgb(0, 0, 0),
+      0 0 92px rgb(0, 0, 0),
+      0 0 102px rgb(0, 0, 0),
+      0 0 151px rgb(0, 0, 0);
+  }
+  
+  h1, h2, h3 {
+    font-weight: bold;
+}
+
+h1 {
+font-size: 2em;
+margin: 0;
+}
+
+p {
+line-height: 1.5;
+}
+
+footer {
+background-color: #333;
+color: #fff;
+padding: 10px;
+text-align: center;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.filter {
+  margin-bottom: 1em;
+}
+
+.car-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.car {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex-basis: calc(33.33% - 2em);
+}
+
+.car img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1em;
+}
+
+.car h3 {
+  margin: 0;
+}
+
+.car p {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.button {
+  display: inline-block;
+  background-color: #1E90FF;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #4169E1;
+}
+
+/* Стили для выпадающего списка */
+.filter label {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.filter select {
+  font-size: 1em;
+  padding: 0.25em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  appearance: none;
+}
+
+/* Стили для разных типов кузовов */
+.car.suv {
+  border-color: #006400;
+}
+
+.car.sedan {
+  border-color: #8B0000;
+}
+
+.car.hatchback {
+  border-color: #8b890d;
+}
+
+.special {
+  margin-left: 1100px;
+  text-align: justify;
+  color: rgb(255, 255, 255);
+  text-shadow:
+    0 0 7px brown,
+    0 0 10px brown,
+    0 0 21px brown,
+    0 0 42px rgb(0, 0, 0),
+    0 0 82px rgb(0, 0, 0),
+    0 0 92px rgb(0, 0, 0),
+    0 0 102px rgb(0, 0, 0),
+    0 0 151px rgb(0, 0, 0);
+}
+
+figure {
+  margin-left: 1200px;
+  text-align: justify;
+}
+
+.click {
+  margin-left: 1100px;
+  margin-bottom: 130px;
+}
+.about {
+  margin-top: 500px;
+  margin-left: 130px;
+}
+
+.contacts {
+  margin-top: 250px;
+  margin-bottom: 290px;
+}
