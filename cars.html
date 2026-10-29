@@ -1,90 +1,110 @@
 <!DOCTYPE html>
-<html>
-<style>
-    html {
-        background-image: url(images/cars.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        background-attachment: fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        opacity: 0.9;
-    }
-</style>
+<html lang="ru">
 
 <head>
-    <title>Автосалон Renault - Автомобили</title>
-    <link rel="shortcut icon" type="image/x-icon" href="renault.ico">
-    <link rel="stylesheet" href="styles/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Автомобили | Автосалон Renault</title>
+  <link rel="shortcut icon" type="image/x-icon" href="renault.ico">
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
-    <header>
-        <h1>Автосалон Renault</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="cars.html">Автомобили</a></li>
-                <li><a href="about.html">О нас</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Предоставленные модели</h2>
-        <div class="filter">
-            <label for="type">Тип кузова:</label>
-            <select id="type">
-                <option value="all">Все</option>
-                <option value="suv">Внедорожник</option>
-                <option value="sedan">Седан</option>
-                <option value="hatchback">Хетчбэк</option>
-            </select>
+  <header>
+    <h1>Автосалон Renault</h1>
+    <button class="menu-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="cars.html">Автомобили</a></li>
+        <li><a href="about.html">О нас</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="catalog">
+    <h2>Модельный ряд</h2>
+    <div class="filter">
+      <label for="type">Тип кузова:</label>
+      <select id="type" onchange="filterCars(this.value)">
+        <option value="all">Все</option>
+        <option value="suv">Внедорожник</option>
+        <option value="sedan">Седан</option>
+        <option value="hatchback">Хетчбэк</option>
+      </select>
+    </div>
+    <ul class="car-list">
+      <li class="car suv" data-type="suv">
+        <img src="images/renault-kadjar.png" alt="Renault Kadjar">
+        <div class="car-body">
+          <span class="type-badge">Внедорожник</span>
+          <h3>Renault Kadjar</h3>
+          <p>Просторный и универсальный кроссовер для любых приключений.</p>
+          <a href="renault-kadjar.html" class="button">Подробнее</a>
         </div>
-        <ul class="car-list">
-            <li class="car suv">
-                <img src="images/renault-kadjar.png" alt="Renault Kadjar">
-                <h3>Renault Kadjar</h3>
-                <p>Просторный и универсальный кроссовер для любых приключений.</p>
-                <a href="renault-kadjar.html" class="button">Подробнее</a>
-            </li>
-            <li class="car suv">
-                <img src="images/renault-kaptur.png" alt="Renault Captur">
-                <h3>Renault Kaptur</h3>
-                <p>Компактный кроссовер с ярким дизайном и хорошей маневренностью.</p>
-                <a href="renault-kaptur.html" class="button">Подробнее</a>
-            </li>
-            <li class="car sedan">
-                <img src="images/renault-talisman.png" alt="Renault Talisman">
-                <h3>Renault Talisman</h3>
-                <p>Роскошный и комфортабельный седан для длительных поездок.</p>
-                <a href="renault-talisman.html" class="button">Подробнее</a>
-            </li>
-            <li class="car sedan">
-                <img src="images/renault-fluence-gt2.webp" alt="Renault Fluence GT2">
-                <h3>Renault Fluence GT2</h3>
-                <p>Стильный автомобиль с высокой производительностью.</p>
-                <a href="renault-fluence-gt2.html" class="button">Подробнее</a>
-            </li>
-            <li class="car hatchback">
-                <img src="images/renault-clio.png" alt="Renault Clio">
-                <h3>Renault Clio</h3>
-                <p>Компактный автомобиль, оснащённый гибридным двигателем.</p>
-                <a href="renault-clio.html" class="button">Подробнее</a>
-            </li>
-            <li class="car hatchback">
-                <img src="images/renault-megane.jpg" alt="Renault Megane">
-                <h3>Renault Megane</h3>
-                <p>Отличный городской автомобиль с просторным салоном.</p>
-                <a href="renault-megane.html" class="button">Подробнее</a>
-            </li>
-        </ul>
-    </main>
-    <footer>
-        <p>© Renault Group 2023</p>
-    </footer>
+      </li>
+      <li class="car suv" data-type="suv">
+        <img src="images/renault-kaptur.png" alt="Renault Kaptur">
+        <div class="car-body">
+          <span class="type-badge">Внедорожник</span>
+          <h3>Renault Kaptur</h3>
+          <p>Компактный кроссовер с ярким дизайном и хорошей маневренностью.</p>
+          <a href="renault-kaptur.html" class="button">Подробнее</a>
+        </div>
+      </li>
+      <li class="car sedan" data-type="sedan">
+        <img src="images/renault-talisman.png" alt="Renault Talisman">
+        <div class="car-body">
+          <span class="type-badge">Седан</span>
+          <h3>Renault Talisman</h3>
+          <p>Роскошный и комфортабельный седан для длительных поездок.</p>
+          <a href="renault-talisman.html" class="button">Подробнее</a>
+        </div>
+      </li>
+      <li class="car sedan" data-type="sedan">
+        <img src="images/renault-fluence-gt2.webp" alt="Renault Fluence GT2">
+        <div class="car-body">
+          <span class="type-badge">Седан</span>
+          <h3>Renault Fluence GT2</h3>
+          <p>Стильный автомобиль с высокой производительностью.</p>
+          <a href="renault-fluence-gt2.html" class="button">Подробнее</a>
+        </div>
+      </li>
+      <li class="car hatchback" data-type="hatchback">
+        <img src="images/renault-clio.png" alt="Renault Clio">
+        <div class="car-body">
+          <span class="type-badge">Хетчбэк</span>
+          <h3>Renault Clio</h3>
+          <p>Компактный автомобиль, оснащённый гибридным двигателем.</p>
+          <a href="renault-clio.html" class="button">Подробнее</a>
+        </div>
+      </li>
+      <li class="car hatchback" data-type="hatchback">
+        <img src="images/renault-megane.jpg" alt="Renault Megane">
+        <div class="car-body">
+          <span class="type-badge">Хетчбэк</span>
+          <h3>Renault Megane</h3>
+          <p>Отличный городской автомобиль с просторным салоном.</p>
+          <a href="renault-megane.html" class="button">Подробнее</a>
+        </div>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>&copy; Renault Group 2023</p>
+  </footer>
+
+  <script>
+    function filterCars(type) {
+      document.querySelectorAll('.car').forEach(function (car) {
+        car.style.display = (type === 'all' || car.dataset.type === type) ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 
 </html>

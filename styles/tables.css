@@ -1,73 +1,133 @@
+/* ===== Страница характеристик ===== */
+:root {
+  --yellow: #EFDF00;
+  --yellow-dark: #D4C500;
+  --black: #1a1a1a;
+  --dark: #222;
+  --white: #fff;
+  --text: #e0e0e0;
+  --radius: 12px;
+  --transition: .3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #eee;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
 }
 
 h1 {
-    font-size: 36px;
-    font-weight: bold;
-    text-align: center;
-    margin: 30px 0;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 800;
+  text-align: center;
+  color: var(--yellow);
+  margin-bottom: 32px;
+}
+
+.spec-card {
+  width: 100%;
+  max-width: 700px;
+  background: var(--dark);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
 }
 
 table {
-    margin: 0 auto;
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    max-width: 800px;
-    background-color: #fff;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th,
-td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ccc;
+th, td {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: .95rem;
 }
 
 th {
-    background-color: #ddd;
-    font-weight: bold;
+  background: rgba(239, 223, 0, .12);
+  color: var(--yellow);
+  font-weight: 700;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+td { border-bottom: 1px solid rgba(255,255,255,.06); }
 
-tr:hover {
-    background-color: #ddd;
-}
+tr:last-child td { border-bottom: none; }
 
 td:first-child {
-    font-weight: bold;
-    background-color: #f2f2f2;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+  width: 35%;
 }
 
 td:last-child {
-    font-weight: bold;
-    color: #1E90FF;
+  color: rgba(255,255,255,.75);
 }
 
-button {
-    display: block;
-    margin: 30px auto;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-weight: bold;
-    background-color: #1E90FF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+tr:hover td {
+  background: rgba(255,255,255,.03);
 }
 
-button:hover {
-    background-color: #1E90FF;
+/* Строка с ценой */
+tr:last-child td:last-child {
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.button {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  text-align: center;
+}
+
+.button:hover {
+  background: var(--yellow-dark);
+  transform: translateY(-2px);
+}
+
+.button-outline {
+  background: transparent;
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+}
+
+.button-outline:hover {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+@media (max-width: 600px) {
+  th, td { padding: 10px 14px; font-size: .88rem; }
+  td:first-child { white-space: normal; }
 }

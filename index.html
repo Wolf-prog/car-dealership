@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<html>
-<style>
-  html {
-    background-image: url(images/homepage.jpg);
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    opacity: 0.9;
-  }
-</style>
-
+<html lang="ru">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Автосалон Renault</title>
   <link rel="shortcut icon" type="image/x-icon" href="renault.ico">
   <link rel="stylesheet" href="styles/styles.css">
 </head>
-
 <body>
   <header>
     <h1>Автосалон Renault</h1>
+    <button class="menu-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
     <nav>
       <ul>
         <li><a href="index.html">Главная</a></li>
@@ -32,27 +22,21 @@
       </ul>
     </nav>
   </header>
-  <main>
-    <h2>Добро пожаловать в Автосалон Renault</h2>
-    <p>Мы предлагаем широкий выбор автомобилей Renault для любых нужд и бюджетов.</p>
-  </main>
 
-  <div class="pouring" style="text-align: right;">
-    <h2 class="special">Возрождение Рено</h2>
-    <figure>
-      <img src="images/ico.png" width="120" height="120">
-    </figure>
-    <p class="special">Сегодня: Пережив трудный период в конце 2000-х,</p>
-    <p class="special">Renault возвращается на правильный путь:</p>
-    <p class="special">Представляем обновленный модельный ряд автомобилей,</p>
-    <p class="special">таких как CLIO, кроссовер Captur и новый Megane;</p>
-    <p class="special">Сейчас бренд сосредоточен на том, что у него получается лучше всего:</p>
-    <p class="special">на создании инновационных автомобилей с оттенком французского стиля.</p>
-  </div>
-  <div class="click"><a href="cars.html" class="button">Узнать больше</a></div>
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url(images/homepage.jpg)"></div>
+    <div class="hero-content">
+      <img src="images/ico.png" alt="Renault" class="hero-logo" width="80" height="80">
+      <h2>Возрождение Renault</h2>
+      <p>Пережив трудный период в конце 2000-х, Renault возвращается на правильный путь.</p>
+      <p>Обновлённый модельный ряд: CLIO, кроссовер Captur и новый Megane.</p>
+      <p style="margin-bottom: 24px">Инновационные автомобили с оттенком французского стиля.</p>
+      <a href="cars.html" class="button">Смотреть модели</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; Renault Group 2023</p>
+  </footer>
 </body>
-<footer>
-  <p>© Renault Group 2023</p>
-</footer>
-
 </html>
