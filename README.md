@@ -74,3 +74,4 @@ car-dealership/
     ico.png               Логотип Renault
     renault-*.png/jpg/webp Изображения автомобилей
 ```
+
