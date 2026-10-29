@@ -100,11 +100,13 @@ nav a::after {
   transition: width var(--transition);
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
   color: var(--yellow);
 }
 
-nav a:hover::after {
+nav a:hover::after,
+nav a.active::after {
   width: 100%;
 }
 

@@ -7,12 +7,35 @@
   <title>Автомобили | Автосалон Renault</title>
   <link rel="shortcut icon" type="image/x-icon" href="renault.ico">
   <link rel="stylesheet" href="styles/styles.css">
+  <style>
+    .search-box {
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      border: 2px solid var(--yellow);
+      background: var(--dark);
+      color: var(--white);
+      outline: none;
+      min-width: 220px;
+      transition: border-color var(--transition);
+    }
+    .search-box:focus {
+      border-color: var(--yellow-dark);
+    }
+    .empty-catalog {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 40px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.1rem;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <h1>Автосалон Renault</h1>
-    <button class="menu-toggle" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">
+    <button class="menu-toggle" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
     <nav>
@@ -27,70 +50,22 @@
 
   <main class="catalog">
     <h2>Модельный ряд</h2>
+    
     <div class="filter">
+      <label for="search">Поиск:</label>
+      <input type="text" id="search" class="search-box" placeholder="Название или характеристика...">
+
       <label for="type">Тип кузова:</label>
-      <select id="type" onchange="filterCars(this.value)">
-        <option value="all">Все</option>
+      <select id="type">
+        <option value="all">Все типы</option>
         <option value="suv">Внедорожник</option>
         <option value="sedan">Седан</option>
         <option value="hatchback">Хетчбэк</option>
       </select>
     </div>
-    <ul class="car-list">
-      <li class="car suv" data-type="suv">
-        <img src="images/renault-kadjar.png" alt="Renault Kadjar">
-        <div class="car-body">
-          <span class="type-badge">Внедорожник</span>
-          <h3>Renault Kadjar</h3>
-          <p>Просторный и универсальный кроссовер для любых приключений.</p>
-          <a href="renault-kadjar.html" class="button">Подробнее</a>
-        </div>
-      </li>
-      <li class="car suv" data-type="suv">
-        <img src="images/renault-kaptur.png" alt="Renault Kaptur">
-        <div class="car-body">
-          <span class="type-badge">Внедорожник</span>
-          <h3>Renault Kaptur</h3>
-          <p>Компактный кроссовер с ярким дизайном и хорошей маневренностью.</p>
-          <a href="renault-kaptur.html" class="button">Подробнее</a>
-        </div>
-      </li>
-      <li class="car sedan" data-type="sedan">
-        <img src="images/renault-talisman.png" alt="Renault Talisman">
-        <div class="car-body">
-          <span class="type-badge">Седан</span>
-          <h3>Renault Talisman</h3>
-          <p>Роскошный и комфортабельный седан для длительных поездок.</p>
-          <a href="renault-talisman.html" class="button">Подробнее</a>
-        </div>
-      </li>
-      <li class="car sedan" data-type="sedan">
-        <img src="images/renault-fluence-gt2.webp" alt="Renault Fluence GT2">
-        <div class="car-body">
-          <span class="type-badge">Седан</span>
-          <h3>Renault Fluence GT2</h3>
-          <p>Стильный автомобиль с высокой производительностью.</p>
-          <a href="renault-fluence-gt2.html" class="button">Подробнее</a>
-        </div>
-      </li>
-      <li class="car hatchback" data-type="hatchback">
-        <img src="images/renault-clio.png" alt="Renault Clio">
-        <div class="car-body">
-          <span class="type-badge">Хетчбэк</span>
-          <h3>Renault Clio</h3>
-          <p>Компактный автомобиль, оснащённый гибридным двигателем.</p>
-          <a href="renault-clio.html" class="button">Подробнее</a>
-        </div>
-      </li>
-      <li class="car hatchback" data-type="hatchback">
-        <img src="images/renault-megane.jpg" alt="Renault Megane">
-        <div class="car-body">
-          <span class="type-badge">Хетчбэк</span>
-          <h3>Renault Megane</h3>
-          <p>Отличный городской автомобиль с просторным салоном.</p>
-          <a href="renault-megane.html" class="button">Подробнее</a>
-        </div>
-      </li>
+
+    <ul class="car-list" id="car-list">
+      <!-- Генерируется через JS из data/cars.js -->
     </ul>
   </main>
 
@@ -98,12 +73,51 @@
     <p>&copy; Renault Group 2023</p>
   </footer>
 
+  <script src="scripts/main.js"></script>
+  <script src="data/cars.js"></script>
   <script>
-    function filterCars(type) {
-      document.querySelectorAll('.car').forEach(function (car) {
-        car.style.display = (type === 'all' || car.dataset.type === type) ? '' : 'none';
-      });
-    }
+    (function () {
+      const listEl = document.getElementById('car-list');
+      const typeSelect = document.getElementById('type');
+      const searchInput = document.getElementById('search');
+
+      function renderCars() {
+        const selectedType = typeSelect.value;
+        const searchQuery = searchInput.value.trim().toLowerCase();
+
+        const filtered = CARS.filter(car => {
+          const matchType = selectedType === 'all' || car.type === selectedType;
+          const matchSearch = !searchQuery || 
+            car.name.toLowerCase().includes(searchQuery) ||
+            car.description.toLowerCase().includes(searchQuery) ||
+            car.typeName.toLowerCase().includes(searchQuery);
+          return matchType && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+          listEl.innerHTML = '<li class="empty-catalog">Автомобилей по заданным критериям не найдено.</li>';
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(car => `
+          <li class="car ${car.type}" data-type="${car.type}">
+            <img src="${car.image}" alt="${car.name}" loading="lazy">
+            <div class="car-body">
+              <span class="type-badge">${car.typeName}</span>
+              <h3>${car.name}</h3>
+              <p>${car.description}</p>
+              <a href="car.html?model=${car.id}" class="button">Подробнее</a>
+            </div>
+          </li>
+        `).join('');
+      }
+
+      typeSelect.addEventListener('change', renderCars);
+      searchInput.addEventListener('input', renderCars);
+
+      // Инициализация при загрузке
+      renderCars();
+    })();
   </script>
 </body>
 

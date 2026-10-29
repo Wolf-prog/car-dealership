@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Характеристики | Автосалон Renault</title>
+  <link rel="shortcut icon" type="image/x-icon" href="renault.ico">
+  <link rel="stylesheet" href="styles/tables.css">
+  <style>
+    .car-preview {
+      max-width: 420px;
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      margin: 0 auto 20px;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-card {
+      background: var(--dark);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius);
+      padding: 28px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-card h2 {
+      color: var(--yellow);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    .modal-card p {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #151515;
+      color: var(--white);
+      font-size: 0.95rem;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      border-color: var(--yellow);
+    }
+    .not-found {
+      text-align: center;
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="content-container" style="width: 100%; max-width: 700px; display: flex; flex-direction: column; align-items: center;">
+    <h1 id="car-title">Характеристики автомобиля</h1>
+    
+    <img id="car-image" class="car-preview" src="" alt="" style="display: none;">
+
+    <div class="spec-card">
+      <table id="spec-table">
+        <thead>
+          <tr>
+            <th>Характеристика</th>
+            <th>Значение</th>
+          </tr>
+        </thead>
+        <tbody id="spec-body">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="actions">
+      <a href="cars.html" class="button button-outline">Назад к каталогу</a>
+      <button class="button" id="buy-button">Приобрести</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно оформления заявки -->
+  <div class="modal-overlay" id="order-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <h2 id="modal-title">Заявка на покупку</h2>
+      <p id="modal-desc">Оставьте свои контактные данные, и менеджер дилерского центра свяжется с вами в течение 15 минут.</p>
+      <form id="order-form">
+        <div class="form-group">
+          <label for="client-name">Ваше имя</label>
+          <input type="text" id="client-name" required placeholder="Иван Иванов">
+        </div>
+        <div class="form-group">
+          <label for="client-phone">Номер телефона</label>
+          <input type="tel" id="client-phone" required placeholder="+7 (___) ___-__-__">
+        </div>
+        <button type="submit" class="button" style="width: 100%; margin-top: 8px;">Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data/cars.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const carId = params.get('model') || params.get('id');
+
+      const car = CARS.find(item => item.id === carId);
+
+      const titleEl = document.getElementById('car-title');
+      const pageTitleEl = document.getElementById('page-title');
+      const imgEl = document.getElementById('car-image');
+      const tbodyEl = document.getElementById('spec-body');
+      const buyBtn = document.getElementById('buy-button');
+      const modal = document.getElementById('order-modal');
+      const modalClose = document.getElementById('modal-close');
+      const modalTitle = document.getElementById('modal-title');
+      const orderForm = document.getElementById('order-form');
+
+      if (!car) {
+        document.getElementById('content-container').innerHTML = `
+          <div class="not-found">
+            <h1>Модель не найдена</h1>
+            <p style="margin: 20px 0; color: rgba(255,255,255,0.7);">К сожалению, запрашиваемый автомобиль отсутствует в каталоге.</p>
+            <a href="cars.html" class="button">Вернуться к списку авто</a>
+          </div>
+        `;
+        return;
+      }
+
+      // Заполняем данные
+      pageTitleEl.textContent = `Характеристики ${car.name} | Автосалон Renault`;
+      titleEl.textContent = `Характеристики ${car.name}`;
+
+      if (car.image) {
+        imgEl.src = car.image;
+        imgEl.alt = car.name;
+        imgEl.style.display = 'block';
+      }
+
+      // Генерация таблицы характеристик
+      tbodyEl.innerHTML = car.specs.map(([prop, val]) => `
+        <tr>
+          <td>${prop}</td>
+          <td>${val}</td>
+        </tr>
+      `).join('');
+
+      // Логика модального окна "Приобрести"
+      buyBtn.addEventListener('click', () => {
+        modalTitle.textContent = `Заявка: ${car.name}`;
+        modal.classList.add('active');
+      });
+
+      modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+
+      orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('client-name').value;
+        alert(`Спасибо, ${name}! Ваша заявка на ${car.name} принята. Мы свяжемся с вами.`);
+        modal.classList.remove('active');
+        orderForm.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
